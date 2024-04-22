@@ -9,13 +9,14 @@ class CustomUserForm(SignupForm):
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data.get('phone_number')
-        if phone_number and len(phone_number) != 10:
-            raise forms.ValidationError("Номер телефона должен состоять из 10 символов.")
+        if phone_number and len(phone_number) != 9:
+            raise forms.ValidationError("Номер телефона должен состоять из 9 символов.")
         return phone_number
 
     def save(self, request):
         user = super(CustomUserForm, self).save(request)
-        user.phone_number = self.cleaned_data['phone_number']
+        phone_number = self.cleaned_data['phone_number']
+        user.phone_number = "+996" + phone_number
         user.age = self.cleaned_data['age']
         user.country = self.cleaned_data['country']
         user.save()
