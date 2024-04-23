@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.facebook',
     'modeltranslation',
     'django.contrib.admin',
     'django_filters',
@@ -183,6 +184,17 @@ SOCIALACCOUNT_PROVIDERS = {
             'client_id': os.getenv('client_id'),
             'secret': os.getenv('secret'),
         }
+    },
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'VERIFIED_EMAIL': True,
+        'VERSION': 'v10.0',
+        'APP': {
+            'app_id': os.getenv('f_app_id'),
+            'app_secret': os.getenv('f_app_s'),
+        }
     }
 }
-
